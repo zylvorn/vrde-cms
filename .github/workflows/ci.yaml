@@ -28,7 +28,7 @@ jobs:
       - name: Build and Tag Docker Image
         run: |
           echo "$ENV" > .env
-          echo .env
+          cat .env
           docker build -t vrde-cms:dev .
           docker tag vrde-cms:dev "$REGISTRY"/vrde-cms:dev
 
