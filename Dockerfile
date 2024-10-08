@@ -1,21 +1,25 @@
-
-FROM node:20-alpine as base
-COPY . /app
-
+FROM node:18-alpine AS base
 WORKDIR /app
 
-RUN yarn --network-timeout 600000
-RUN yarn install
-RUN yarn lint
+COPY package.json ./
+
+COPY . .
+
+COPY .env /
+
+ENV GENERATE_SOURCEMAP false
+
 RUN yarn build
 
-FROM node:alpine as runner
+FROM node:18-alpine as runner
 WORKDIR /app
-COPY --from=base --chown=10101 /app/public ./public
-COPY --from=base --chown=10101 /app/.next/standalone ./
-COPY --from=base --chown=10101 /app/.next/static ./.next/static
-COPY --from=base --chown=10101 /app/.env ./.env
+COPY --from=base /app/package*.json .
+COPY --from=base /app/next.config.mjs ./
+COPY --from=base /app/public ./public
+COPY --from=base /app/.next/standalone ./
+COPY --from=base /app/.next/static ./.next/static
+
+
+CMD ["node", "server.js"]
 EXPOSE 3000
 
-#Start app server upon docker run
-CMD ["node", "server.js"]
