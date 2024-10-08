@@ -27,7 +27,10 @@ const CDatePicker: React.FC<TProps> = ({
   max,
 }) => {
   return (
-    <FormControl sx={{ width: '100%' }} className={className}>
+    <FormControl
+      sx={{ width: '100%', marginBottom: '1rem' }}
+      className={className}
+    >
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <MobileDatePicker
           onAccept={onClose}

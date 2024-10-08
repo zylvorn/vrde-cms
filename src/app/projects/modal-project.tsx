@@ -87,7 +87,7 @@ const ModalAddProject: React.FC<TProps> = (props) => {
           onChange={onChangeText}
         />
         <CDatePicker
-          className='mb-4'
+          // className='mb-4'
           label='Project Date'
           value={dayjs(data?.date)}
           onClose={(date) => {
