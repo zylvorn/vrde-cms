@@ -5,6 +5,7 @@ COPY . /app
 WORKDIR /app
 
 RUN yarn --network-timeout 600000
+RUN yarn install
 RUN yarn lint
 RUN yarn build
 
