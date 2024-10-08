@@ -4,7 +4,7 @@ FROM node:18-alpine AS base
 WORKDIR /app
 
 # Copy over the package.json and install dependencies
-COPY package.json yarn.lock ./
+COPY package.json ./
 RUN yarn install
 
 # Copy over all the source files and build the project
