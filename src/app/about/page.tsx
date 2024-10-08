@@ -160,7 +160,7 @@ const About = () => {
                   <Button
                     onClick={() => addClient()}
                     variant='contained'
-                    className='mb-2'
+                    className='!mb-2'
                   >
                     Add Client
                   </Button>

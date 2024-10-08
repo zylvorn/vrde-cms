@@ -132,7 +132,7 @@ const ModalAddProject: React.FC<TProps> = (props) => {
           )}
           renderOption={(props, option) => <li {...props}>{option?.name}</li>}
         />
-        <Button onClick={addImage} variant='contained' className='mb-4'>
+        <Button onClick={addImage} variant='contained' className='!mb-4'>
           Add Image
         </Button>
         {data?.images.map((image) => (

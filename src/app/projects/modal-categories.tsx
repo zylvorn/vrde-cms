@@ -29,13 +29,14 @@ const ModalCategories: React.FC<TProps> = ({
   return (
     <Dialog open={modalTags.modal}>
       <DialogContent>
-        <Button variant='contained' className='mb-3' onClick={addCategory}>
+        <Button variant='contained' className='!mb-3' onClick={addCategory}>
           Add Category
         </Button>
         {modalTags.data.map((item) => (
           <div className='flex gap-3 mb-2' key={item.id}>
             <div className=''>
               <CInput
+                label='Group'
                 value={item.group}
                 onClick={() => setFocusID('group-' + item.id)}
                 autoFocus={focusID === 'group-' + item.id}
@@ -56,6 +57,7 @@ const ModalCategories: React.FC<TProps> = ({
             </div>
             <div className=''>
               <CInput
+                label='Name'
                 value={item.name}
                 onClick={() => setFocusID('name-' + item.id)}
                 autoFocus={focusID === 'name-' + item.id}
