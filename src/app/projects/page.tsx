@@ -93,7 +93,7 @@ const Projects = () => {
                 )}
               </Button>
             </div>
-            <div className='flex justify-center gap-3 mb-2'>
+            <div className='flex justify-center gap-3 mb-2 mt-2'>
               <div
                 onClick={() => setTab('projects')}
                 className={tabClass('projects')}
