@@ -41,14 +41,15 @@ const Contact = () => {
                 )}
               </Button>
             </div>
-            <CInput
-              label='Whatsapp Number'
-              className='mb-2'
-              value={contactState.whatsapp}
-              onChange={(e) =>
-                setContactState({ ...contactState, whatsapp: e.target.value })
-              }
-            />
+            <div className='mb-2 mt-2'>
+              <CInput
+                label='Whatsapp Number'
+                value={contactState.whatsapp}
+                onChange={(e) =>
+                  setContactState({ ...contactState, whatsapp: e.target.value })
+                }
+              />
+            </div>
             <Editor
               value={contactState.html}
               onChange={(html) => setContactState({ ...contactState, html })}
