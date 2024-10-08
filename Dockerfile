@@ -8,7 +8,7 @@ COPY . .
 COPY .env /
 
 ENV GENERATE_SOURCEMAP false
-
+RUN yarn install
 RUN yarn build
 
 FROM node:18-alpine as runner
