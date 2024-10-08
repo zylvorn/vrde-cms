@@ -1,7 +1,6 @@
 name: DEV
 
 on:
-  workflow_dispatch:
   pull_request:
     branches:
       - master
@@ -28,6 +27,7 @@ jobs:
       - name: Build and Tag Docker Image
         run: |
           echo "$ENV" > .env
+          echo .env
           docker build -t vrde-cms:dev .
           docker tag vrde-cms:dev "$REGISTRY"/vrde-cms:dev
 
