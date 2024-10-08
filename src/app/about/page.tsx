@@ -160,18 +160,19 @@ const About = () => {
                   <Button
                     onClick={() => addClient()}
                     variant='contained'
-                    className='!mb-2'
+                    className='!mb-5'
                   >
                     Add Client
                   </Button>
-                  <div className='overflow-y-scroll'>
+                  <div className='overflow-y-scroll py-4'>
                     {aboutState.clients.map((item) => (
                       <div
-                        className='flex gap-2 items-center mb-3'
+                        className='flex gap-2 items-center mb-4'
                         key={Math.random()}
                       >
                         <div className='w-[50%]'>
                           <CInput
+                            label='Client Name'
                             value={item.name}
                             className='h-[45px]'
                             autoFocus={focusID === item.id}
