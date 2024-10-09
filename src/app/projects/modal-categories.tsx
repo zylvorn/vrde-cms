@@ -1,6 +1,12 @@
 'use client'
 
-import { Button, Dialog, DialogActions, DialogContent } from '@mui/material'
+import {
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+} from '@mui/material'
 import { TTag } from './hooks'
 import { Dispatch, SetStateAction, useState } from 'react'
 import CInput from '@/components/custom/input'
@@ -14,12 +20,14 @@ type TProps = {
   modalTags: TModal
   setModalTags: Dispatch<SetStateAction<TModal>>
   onSubmit: () => void
+  loading: boolean
 }
 
 const ModalCategories: React.FC<TProps> = ({
   modalTags,
   setModalTags,
   onSubmit,
+  loading,
 }) => {
   const addCategory = () => {
     const insertedData: TTag = { id: generateUUID(), name: '', group: '' }
@@ -99,8 +107,15 @@ const ModalCategories: React.FC<TProps> = ({
         >
           Cancel
         </Button>
-        <Button onClick={onSubmit} variant='contained'>
-          Save
+
+        <Button
+          disabled={loading}
+          onClick={() => {
+            if (!loading) onSubmit()
+          }}
+          variant='contained'
+        >
+          {loading ? <CircularProgress /> : 'Save'}
         </Button>
       </DialogActions>
     </Dialog>

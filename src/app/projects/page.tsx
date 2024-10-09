@@ -119,11 +119,13 @@ const Projects = () => {
                   projectItem={projectItem}
                   setProjectItem={setProjectItem}
                   options={projectState.tags}
+                  loading={loading}
                 />
                 <ModalCategories
                   onSubmit={submitUpdateTags}
                   modalTags={modalTags}
                   setModalTags={setModalTags}
+                  loading={loading}
                 />
                 <div className='flex justify-between mb-2 items-center'>
                   <div className='flex gap-3'>

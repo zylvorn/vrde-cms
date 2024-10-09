@@ -97,6 +97,7 @@ const useProjects = () => {
   const submitUpdateTags = async () => {
     const dataSubmitted = modalTags.data
     const token = localStorage.getItem('token')
+    setLoading(true)
     const { data } = await axios.put<{ data: TTag[]; error: string | null }>(
       '/api/projects/tags',
       { tags: dataSubmitted },
@@ -104,8 +105,10 @@ const useProjects = () => {
     )
     if (data.error) {
       toast.error(String(data.error))
+      setLoading(false)
       return
     } else {
+      setLoading(false)
       toast.success('Categories updated')
       setProjectState({ ...projectState, tags: data.data })
       setModalTags({ modal: false, data: [] })

@@ -3,6 +3,7 @@
 import {
   Autocomplete,
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -26,6 +27,7 @@ type TProps = {
   setProjectItem: Dispatch<SetStateAction<TModal>>
   options: TTag[]
   onSubmit: () => void
+  loading: boolean
 }
 const ModalAddProject: React.FC<TProps> = (props) => {
   const {
@@ -197,8 +199,14 @@ const ModalAddProject: React.FC<TProps> = (props) => {
         >
           Cancel
         </Button>
-        <Button onClick={props.onSubmit} variant='contained'>
-          Save
+        <Button
+          disabled={props.loading}
+          onClick={() => {
+            if (!props.loading) props.onSubmit()
+          }}
+          variant='contained'
+        >
+          {props.loading ? <CircularProgress /> : 'Save'}
         </Button>
       </DialogActions>
     </Dialog>
