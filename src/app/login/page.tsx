@@ -26,12 +26,22 @@ const LoginPage = () => {
                 setError(null)
                 setCred({ ...cred, username: e.target.value })
               }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  onClick()
+                }
+              }}
             />
             <CInput
               label='Password'
               type='password'
               className='mb-8'
               value={cred.password}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  onClick()
+                }
+              }}
               onChange={(e) => {
                 setError(null)
                 setCred({ ...cred, password: e.target.value })
