@@ -74,7 +74,7 @@ const useProjects = () => {
 
   const getProjects = async () => {
     try {
-      const { data } = await axios.get<TDataBE>('/api/projects')
+      const { data } = await axios.get<TDataBE>('/api/projects/all')
       const ss = {
         ...data,
         projects: data.projects.map((item) => {
