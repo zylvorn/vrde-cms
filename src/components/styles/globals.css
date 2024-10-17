@@ -1,6 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
+@font-face {
+  font-family: 'Grotta';
+  src: url('/fonts/Grotta-Trial-Semibold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url('/fonts/source-sans-pro/SourceSansPro-ExtraLight.otf')
+    format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 :root {
   --background: #ffffff;
