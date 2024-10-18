@@ -26,6 +26,8 @@ export type TProject = {
     isExisting?: boolean
     file: File | TFileLike | null
     name: string
+    isCover?: boolean
+    isMain?: boolean
   }[]
   name: string
   location: string
@@ -39,6 +41,8 @@ type TProjectBE = {
   images: string[]
   name: string
   location: string
+  cover_img?: string
+  main_img?: string
 }
 export type TData = {
   projects: TProject[]
@@ -78,6 +82,8 @@ const useProjects = () => {
       const ss = {
         ...data,
         projects: data.projects.map((item) => {
+          const cvImg = item.cover_img
+          const mainImg = item.main_img
           return {
             ...item,
             images: item.images.map((e) => ({
@@ -85,6 +91,8 @@ const useProjects = () => {
               id: generateUUID(),
               isExisting: true,
               file: { name: e },
+              isCover: e === cvImg,
+              isMain: e === mainImg,
             })),
           }
         }),
@@ -128,13 +136,21 @@ const useProjects = () => {
         date: Date
         tags: TTag[]
         team: string
-        images: { name: string; id: string; isExisting?: boolean }[]
+        images: {
+          name: string
+          id: string
+          isExisting?: boolean
+          isCover?: boolean
+          isMain?: boolean
+        }[]
       }
       const imgs = dataItem.images.map((item) => {
         return {
           name: item.name,
           id: item.id,
           isExisting: item.isExisting || false,
+          isCover: item.isCover || false,
+          isMain: item.isMain || false,
         }
       })
       const dataBodySend: TDataBody = {

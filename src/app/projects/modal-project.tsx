@@ -18,6 +18,9 @@ import Uploader from '@/components/custom/uploader'
 import { generateUUID } from '@/utils/generator/uuid'
 import { TFileLike } from '@/utils/constants/constants'
 
+import DeleteIcon from '@mui/icons-material/DeleteForever'
+import CCheckbox from '@/components/custom/checkbox'
+
 type TModal = {
   modal: boolean
   data: TProject | null
@@ -138,7 +141,7 @@ const ModalAddProject: React.FC<TProps> = (props) => {
           Add Image
         </Button>
         {data?.images.map((image) => (
-          <div className='flex gap-2 mb-2' key={Math.random()}>
+          <div className='flex gap-2 mb-2 items-center' key={Math.random()}>
             <div className='w-full'>
               <Uploader
                 id={image.id}
@@ -169,7 +172,75 @@ const ModalAddProject: React.FC<TProps> = (props) => {
                 className='w-full'
               />
             </div>
-            <Button
+            <div className='flex gap-1 min-w-[100px] flex items-center'>
+              <CCheckbox
+                checked={image.isMain}
+                onClick={() => {
+                  const val = !image.isMain
+                  if (props.projectItem.data) {
+                    props.setProjectItem({
+                      ...props.projectItem,
+                      data: {
+                        ...props.projectItem.data,
+                        images: props.projectItem.data.images.map((x) => {
+                          if (x.id === image.id) {
+                            return {
+                              ...x,
+                              isMain: val,
+                            }
+                          }
+                          return { ...x, isMain: !val }
+                        }),
+                      },
+                    })
+                  }
+                }}
+              />
+              <small>Main Img</small>
+            </div>
+            <div className='flex gap-1 min-w-[100px] flex items-center'>
+              <CCheckbox
+                checked={image.isCover}
+                onClick={() => {
+                  const val = !image.isCover
+                  if (props.projectItem.data) {
+                    props.setProjectItem({
+                      ...props.projectItem,
+                      data: {
+                        ...props.projectItem.data,
+                        images: props.projectItem.data.images.map((x) => {
+                          if (x.id === image.id) {
+                            return {
+                              ...x,
+                              isCover: val,
+                            }
+                          }
+                          return { ...x, isCover: !val }
+                        }),
+                      },
+                    })
+                  }
+                }}
+              />
+              <small>Cover Img</small>
+            </div>
+            <DeleteIcon
+              className='cursor-pointer'
+              onClick={() => {
+                if (props.projectItem.data) {
+                  props.setProjectItem({
+                    ...props.projectItem,
+                    data: {
+                      ...props.projectItem.data,
+                      images: props.projectItem.data.images.filter(
+                        (x) => x.id !== image.id
+                      ),
+                    },
+                  })
+                }
+              }}
+            />
+            {/* <Button
               variant='contained'
               color='error'
               onClick={() => {
@@ -187,7 +258,7 @@ const ModalAddProject: React.FC<TProps> = (props) => {
               }}
             >
               Remove
-            </Button>
+            </Button> */}
           </div>
         ))}
       </DialogContent>
