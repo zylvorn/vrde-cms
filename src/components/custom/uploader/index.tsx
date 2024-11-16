@@ -2,6 +2,7 @@
 import React, { useMemo, useState } from 'react'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
 import { TFileLike } from '@/utils/constants/constants'
+import Image from 'next/image'
 
 type TProps = {
   uploadType: 'image'
@@ -11,6 +12,7 @@ type TProps = {
   label?: string
   id: string
   className?: string
+  url?: string
 }
 
 const Uploader: React.FC<TProps> = (props) => {
@@ -35,6 +37,45 @@ const Uploader: React.FC<TProps> = (props) => {
       }
     }
   }
+  const [showPreview, setShowPreview] = useState(false)
+  const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 })
+
+  const handleMouseEnter = (e: React.MouseEvent) => {
+    if (props.url) {
+      setModalPosition(calculatePosition(e))
+      setShowPreview(true)
+    }
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    setModalPosition(calculatePosition(e))
+  }
+
+  const handleMouseLeave = () => {
+    setShowPreview(false)
+  }
+  const calculatePosition = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e
+    const modalWidth = 200 // Approximate modal width
+    const modalHeight = 200 // Approximate modal height
+    const offset = 10 // Offset to avoid direct overlap with the cursor
+    const windowWidth = window.innerWidth
+    const windowHeight = window.innerHeight
+
+    // Calculate X position
+    let x = clientX + offset
+    if (x + modalWidth > windowWidth) {
+      x = clientX - modalWidth - offset // Move left if out of bounds
+    }
+
+    // Calculate Y position
+    let y = clientY + offset
+    if (y + modalHeight > windowHeight) {
+      y = clientY - modalHeight - offset // Move up if out of bounds
+    }
+
+    return { x, y }
+  }
   return (
     <div>
       {props.label && <small className='mb-1'>{props.label}</small>}
@@ -54,14 +95,39 @@ const Uploader: React.FC<TProps> = (props) => {
           props.className
         }
       >
-        <div className='mr-10 justify-center m-2'>
+        <div className='mr-10 justify-center m-2 flex gap-2'>
           <UploadFileIcon color='primary' />
         </div>
-        <div className='justify-center w-[70%] text-center m-2 border-l-2 border-l-blue'>
+        <div
+          onMouseEnter={handleMouseEnter}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className='justify-center w-[70%] text-center m-2 border-l-2 border-l-blue'
+        >
           {props.value?.name || 'UPLOAD FILE'}
         </div>
       </div>
       {error && <small className='text-red'>{error}</small>}
+      {showPreview && props.value?.name && (
+        <div
+          style={{
+            position: 'fixed',
+            top: modalPosition.y + 10, // Slight offset
+            left: modalPosition.x + 10,
+            zIndex: 1000,
+            pointerEvents: 'none', // Prevent interaction
+          }}
+          className='p-2 border rounded bg-white shadow-lg'
+        >
+          <Image
+            src={props.url || ''}
+            alt='Preview'
+            width={200}
+            height={200}
+            className='max-w-xs max-h-64 object-cover'
+          />
+        </div>
+      )}
     </div>
   )
 }

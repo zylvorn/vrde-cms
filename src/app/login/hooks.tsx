@@ -24,6 +24,8 @@ const useLogin = () => {
       if (data.token) {
         localStorage.setItem('token', data.token)
         router.push('/home')
+        setLoading(false)
+        return
       }
       setError('Token undefined')
       setLoading(false)

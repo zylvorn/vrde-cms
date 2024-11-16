@@ -56,3 +56,19 @@ body {
   scrollbar-width: none;
   /* Firefox */
 }
+/* Minimal styling for react-beautiful-dnd */
+[draggable] {
+  user-select: none;
+  touch-action: none;
+}
+[draggable='true'] {
+  user-select: none; /* Prevents text selection during drag */
+  touch-action: none; /* Prevents unwanted touch interactions */
+}
+.droppable {
+  width: 100%;
+}
+
+.draggable {
+  transition: transform 0.2s ease;
+}

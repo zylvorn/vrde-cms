@@ -21,6 +21,8 @@ export type TProject = {
   date: Date
   tags: TTag[]
   team: string
+  showOnHomeButton?: boolean
+  buttonTextHome?: string
   images: {
     id: string
     isExisting?: boolean
@@ -136,6 +138,8 @@ const useProjects = () => {
         date: Date
         tags: TTag[]
         team: string
+        showOnHomeButton?: boolean
+        buttonTextHome?: string
         images: {
           name: string
           id: string
@@ -162,6 +166,8 @@ const useProjects = () => {
         tags: dataItem.tags,
         team: dataItem.team,
         images: imgs,
+        buttonTextHome: dataItem.buttonTextHome,
+        showOnHomeButton: dataItem.showOnHomeButton,
       }
       formData.append('data', JSON.stringify(dataBodySend))
       dataItem.images
