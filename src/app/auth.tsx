@@ -32,6 +32,9 @@ const AuthLayout: React.FC<TProps> = ({ children }) => {
   useEffect(() => {
     verifyToken()
   }, [router, pathName])
+  useEffect(() => {
+    router.prefetch('/login')
+  }, [router])
   return children
 }
 export default AuthLayout
